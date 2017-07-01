@@ -1,6 +1,6 @@
-require("../cell")
+require("../Cell")
 
-describe("cell", function()
+describe("Cell", function()
   it("#create", function()
     pending()
   end)

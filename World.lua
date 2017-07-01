@@ -60,7 +60,7 @@ function World.get_player_position(world)
 end
 
 function World.get_player_cell(world)
-  return world.maps[world.current_map_idx].grid[world.player.position]
+  return Map.get_cell(World.get_current_map(world), world.player.position)
 end
 
 function World.get_current_map(world)

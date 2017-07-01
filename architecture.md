@@ -63,17 +63,15 @@ props = {
 - create: creates a set of cells that represent an area the player can explore
 - create_cells: uses a set of rules to create all the cells in the map
 - create_cell: creates a single cell of a specified cell type
+- reset_cell: used to change a cells type and reset the props
+- get_cell: retrieve a cell by id
+- get_cells: retrieve all cells, or a list of cells
 - create_door: creates a special cell type that connects to another map in the world
 - empty_cell: changes a cell to an empty cell
 - get_neighboring_cells: gets the cells that touch a specified cell 
 - get_surrounding_cells: gets all cells around a specified cell
 - get_cells_of_type: gets all cells of a specified type
-- is_player_on: checks if the player is on a certain cell type
-- player_cell: get the current cell the player is on
-- player_pos: get the player's position in the map
-- update_map: updates a map, called by World#update_world
-- is_active_map: tells if a map is the one the player is currently in or not
-- log_msg: add a message to the msg_log
+- update: updates a map, called by World#update_world
 
 
 # Player
@@ -132,6 +130,7 @@ static GOLD_REQS = {
 - build_tent: builds a tent using wood
 - sleep: sleeps for awhile to regain energy
 - wake_up: wake the player up from sleeping
+- log_msg: add a message to the msg_log
 
 
 # Cell
