@@ -39,18 +39,27 @@ describe("Map", function()
     assert.are.same(nil, cell, "expected cell to be nil")
   end)
 
-  it("#reset_cell", function()
-    local map = Map.create({})
-    Map.create_cell(map, "bogus_type")
-    local cell = Map.get_cell(map, 1)
-    assert.are.same("bogus_type", cell.type, "expected bogus_type")
-    assert.are.same(cell.cell_props, Cell.DEFAULT_CELL_PROPS.default, "expected default cell_props")
+  describe("#reset_cell", function()
+    local map = nil
+    local cell = nil
 
-    Map.reset_cell(map, 1, "empty")
-    cell = Map.get_cell(map, 1)
+    before_each(function()
+      map = Map.create({})
+      Map.create_cell(map, "bogus_type")
+    end)
 
-    assert.are.same("empty", cell.type, "expected cell to now be empty")
-    assert.are.same(cell.cell_props, Cell.DEFAULT_CELL_PROPS.empty, "expected cell to have 'empty' props")
+    it("can make a cell of any type", function()
+      cell = Map.get_cell(map, 1)
+      assert.are.same("bogus_type", cell.type, "expected bogus_type")
+      assert.are.same(cell.cell_props, Cell.DEFAULT_CELL_PROPS.default, "expected default cell_props")
+    end)
+
+    it("can reset a cell", function()
+      Map.reset_cell(map, 1, "empty")
+      cell = Map.get_cell(map, 1)
+      assert.are.same("empty", cell.type, "expected cell to now be empty")
+      assert.are.same(cell.cell_props, Cell.DEFAULT_CELL_PROPS.empty, "expected cell to have 'empty' props")
+    end)
   end)
 
   it("#empty_cell", function()
