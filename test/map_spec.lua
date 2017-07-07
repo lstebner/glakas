@@ -19,14 +19,60 @@ describe("Map", function()
     assert.are.same(1, map.cells[1].idx, "expected id 1")
   end)
 
-  it("#create_cells", function()
-    local map = Map.create({})
-    assert.are.same(0, map.total_cells, "expected 0 cells")
-    Map.create_cells(map, 1)
-    assert.are.same(1, map.total_cells, "expected 1 cell")
-    Map.create_cells(map, 4, "water")
-    assert.are.same(5, map.total_cells, "expected 5 cells")
-    assert.are.same("water", map.cells[5].type)
+  describe("#create_cells", function()
+    local map = nil
+
+    before_each(function()
+      map = Map.create({})
+    end)
+
+    it("can create cells", function()
+      assert.are.same(0, map.total_cells, "expected 0 cells")
+      Map.create_cells(map, 1)
+      assert.are.same(1, map.total_cells, "expected 1 cell")
+      Map.create_cells(map, 4, "water")
+      assert.are.same(5, map.total_cells, "expected 5 cells")
+      assert.are.same("water", map.cells[5].type)
+    end)
+
+    it("makes all cells empty by default", function()
+      Map.create_cells(map, 3)
+      for k, v in pairs(map.cells) do
+        assert.are.same("empty", v.type)
+      end
+    end)
+
+    it("can make all cells any specified type", function()
+      local expected_type = "cats"
+      Map.create_cells(map, 3, expected_type)
+      for k, v in pairs(map.cells) do
+        assert.are.same(expected_type, v.type)
+      end
+    end)
+
+    it("can take a list of types to iterate over", function()
+      local expected_types = {"water", "grass", "grass", "cat"}
+      Map.create_cells(map, 4, expected_types)
+      for k, v in pairs(map.cells) do
+        assert.are.same(expected_types[k], v.type)
+      end
+    end)
+
+    it("will make empty cells if the list isn't long enough", function()
+      local expected_types = {"water", "grass"}
+      local empty_cells = 0
+      Map.create_cells(map, 4, expected_types)
+      for k, v in pairs(map.cells) do
+        if expected_types[k] then
+          assert.are.same(expected_types[k], v.type)
+        else
+          empty_cells = empty_cells + 1
+          assert.are.same("empty", v.type)
+        end
+      end
+
+      assert.are.same(2, empty_cells, "expected 2 empty cells")
+    end)
   end)
 
   it("#get_cell", function()
@@ -71,15 +117,24 @@ describe("Map", function()
     assert.are.same("water", Map.get_cell(map, 2).type)
   end)
 
-  it("#create_door", function()
-    local map = Map.create({})
-    Map.create_cells(map, 4, "empty")
-    Map.create_door(map, 1, 2)
-    assert.are.same("door", map.cells[1].type, "expected cell to be a 'door'")
-    assert.are.same(2, map.cells[1].cell_props.connecting_map_idx, "unexpected connecting_map_idx")
+  describe("#create_door", function()
+    local map = nil
 
-    Map.create_door(map, 2, 3, true)
-    assert.is_true(Cell.is_disguised(Map.get_cell(map, 2)), "expected door to be disguised")
+    before_each(function()
+      map = Map.create({})
+      Map.create_cells(map, 4, "empty")
+    end)
+
+    it("can create a door", function()
+      Map.create_door(map, 1, 2)
+      assert.are.same("door", map.cells[1].type, "expected cell to be a 'door'")
+      assert.are.same(2, map.cells[1].cell_props.connecting_map_idx, "unexpected connecting_map_idx")
+    end)
+
+    it("can create a disguised door", function()
+      Map.create_door(map, 2, 3, true)
+      assert.is_true(Cell.is_disguised(Map.get_cell(map, 2)), "expected door to be disguised")
+    end)
   end)
 
   describe("#get_cells", function()
@@ -200,5 +255,65 @@ describe("Map", function()
 
   it("#update", function()
     pending()
+  end)
+
+  describe("#move_player", function()
+    require '../Player'
+
+    local player = nil
+    local map = nil
+
+    before_each(function()
+      player = Player.create()
+      map = Map.create()
+    end)
+
+    it("player can not move west from the left column", function()
+      Player.set_position(player, 1)
+      Map.move_player(map, player, "weest")
+      assert.are.same(1, player.position)
+    end)
+
+    it("player can move west", function()
+      Player.set_position(player, 2)
+      Map.move_player(map, player, "west")
+      assert.are.same(1, player.position)
+    end)
+
+    it("player can not move east from the right column", function()
+      Player.set_position(player, map.cols)
+      Map.move_player(map, player, "east")
+      assert.are.same(map.cols, player.position)
+    end)
+
+    it("player can move east", function()
+      Player.set_position(player, 1)
+      Map.move_player(map, player, "east")
+      assert.are.same(2, player.position)
+    end)
+
+    it("player can not move north from the top column", function()
+      Player.set_position(player, 1)
+      Map.move_player(map, player, "north")
+      assert.are.same(1, player.position)
+    end)
+
+    it("player can move north", function()
+      Player.set_position(player, map.cols + 1)
+      Map.move_player(map, player, "north")
+      assert.are.same(1, player.position)
+    end)
+
+    it("player can not move south from the bottom column", function()
+      Player.set_position(player, map.total_cells - 1)
+      Map.move_player(map, player, "south")
+      assert.are.same(map.total_cells - 1, player.position)
+    end)
+
+    it("player can move south", function()
+      Player.set_position(player, 1)
+      Map.move_player(map, player, "south")
+      assert.are.same(map.cols + 1, player.position)
+    end)
   end)
 end)

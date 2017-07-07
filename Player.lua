@@ -1,17 +1,130 @@
 Player = {}
 
-local DEFAULT_PROPS = {
+require "Backpack"
+
+Player.DEFAULT_PROPS = {
   name = "hero",
-  position = 0,
+  position = 1,
+  energy = 30,
+  max_energy = 60,
+  size = 6,
+}
+
+Player.ENERGY_REQS = {
+  pickaxe = 1,
+  axe = 1,
+  shovel = 1,
+  hand = .5, 
+}
+
+Player.WOOD_REQS = {
+  create_axe = 4,
+  create_pickaxe = 5,
+  create_shovel = 4,
+  create_tent = 8,
+}
+
+Player.GOLD_REQS = {
+  create_key = 9,
 }
 
 function Player.create(props)
-  props = props or DEFAULT_PROPS
-  local new_player = {}
+  props = props or {}
 
-  for k, v in pairs(props) do
-    new_player[k] = v
+  local new_player = {
+    cur_map_idx = 0,
+    backpack = nil,
+    last_move_time = 0,
+    last_tool_time = 0,
+    num_tents_built = 0,
+    num_steps = 0,
+    tools = {},
+    msg_log = {},
+  }
+
+  for i, prps in pairs({Player.DEFAULT_PROPS, props}) do
+    for k, v in pairs(prps) do
+      new_player[k] = v
+    end
   end
 
   return new_player
+end
+
+function Player.create_backpack(player)
+  player.backpack = Backpack.create()
+end
+
+function Player.upgrade_backpack(player, upgrades)
+  Backpack.upgrade(player.backpack, upgrades)
+end
+
+function Player.collect_gold(player, amount)
+  amount = amount or 1
+  if player.backpack == nil then
+    return false
+  end
+
+  Backpack.add_gold(player.backpack, amount)
+end
+
+function Player.has_backpack(player)
+  return player.backpack ~= nil
+end
+
+function Player.num_keys(player)
+  if Player.has_backpack(player) then
+    return player.backpack.keys
+  end
+
+  return 0
+end
+
+function Player.give_key(player, amount)
+  amount = amount or 1
+
+  if Player.has_backpack(player) then
+    Backpack.add_key(player.backpack, amount)
+  end
+
+  return false
+end
+
+function Player.create_key(player)
+  if Player.has_backpack(player) then
+    if player.backpack.gold >= Player.GOLD_REQS.create_key then
+      Backpack.remove_gold(player.backpack, Player.GOLD_REQS.create_key)  
+      Backpack.add_key(player.backpack, 1)
+      return true
+    end
+  end
+
+  return false
+end
+
+function Player.use_key(player, amount)
+  amount = amount or 1
+
+  if amount > 0 and Player.num_keys(player) >= amount then
+    player.backpack.keys = player.backpack.keys - amount
+  end
+
+  return false
+end
+
+function Player.set_position(player, pos)
+  player.position = pos
+end
+
+function Player.move_to(player, pos)
+  player.position = pos
+end
+
+function Player.add_item_to_backpack(player, item)
+  if Player.has_backpack(player) then
+    Backpack.add_item(player.backpack, item)
+    return true
+  end
+
+  return false
 end

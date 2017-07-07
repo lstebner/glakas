@@ -225,15 +225,23 @@ props = {
 }
 
 - create:
-- add_item:
-- remove_item:
-- get_item_at:
+- get_item:
 - get_first_item:
 - get_last_item:
 - get_items:
 - num_items:
-- upgrade_capacity:
-- shift_items: 
+- num_slots:
+- num_empty_slots:
+- is_full:
+- add_item:
+- remove_item:
+- shift_items:
+- add_gold:
+- remove_gold:
+- add_food:
+- remove_food:
+- add_key: 
+- remove_key:
 
 # Tool
 

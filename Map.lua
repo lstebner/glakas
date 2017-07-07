@@ -21,15 +21,30 @@ function Map.create(props)
     grid_size = props.grid_size,
   }
 
-  Map.create_cells(new_map, new_map.rows * new_map.cols)
+  Map.create_cells(new_map, new_map.rows * new_map.cols, props.cells)
 
   return new_map
 end
 
-function Map.create_cells(map, amount, type)
-  type = type or "empty"
+function Map.create_cells(map, amount, cell_type)
+  cell_type = cell_type or "empty"
+  local init_cells = false
+  if type(cell_type) == "table" then
+    init_cells = true
+  end
+
   for i = 1, amount do
-    Map.create_cell(map, type)
+    -- a list of cell_types was passed in
+    if init_cells and cell_type[i] then
+      Map.create_cell(map, cell_type[i])
+    -- a single cell_type was passed in
+    elseif init_cells == false then
+      Map.create_cell(map, cell_type)
+    -- a list of cell types was passed in but we ran out of indexes
+    -- so everything else gets made empty
+    else
+      Map.create_cell(map, "empty")
+    end
   end
 end
 
@@ -169,4 +184,48 @@ function Map.get_surrounding_cells(map, idx)
 end
 
 function Map.update(map, world)
+end
+
+function Map.can_player_move_to(map, new_pos)
+  local cell = Map.get_cell(new_pos)
+
+  -- throttle move speed
+  if love.timer.getTime() * 1000 < player.last_move_time + 200 then
+    return false
+  end
+
+  if cell then
+    -- todo: add `impassable_cell_types` prop to Map
+    return cell.type ~= "stone" and cell.type ~= "water"
+  end
+end
+
+function Map.move_player(map, player, dir)
+  if dir == "east" or dir == "e" then
+    local next_pos = player.position + 1
+    if player.position % map.cols ~= 0 then
+      Player.move_to(player, next_pos)
+    end
+  end
+
+  if dir == "west" or dir == "w" then
+    local next_pos = player.position - 1
+    if next_pos % map.cols < map.cols - 1 then
+      Player.move_to(player, next_pos)
+    end
+  end
+
+  if dir == "north" or dir == "n" then
+    local next_pos = player.position - map.cols
+    if next_pos > -1 then
+      Player.move_to(player, next_pos)
+    end
+  end
+
+  if dir == "south" or dir == "s" then
+    local next_pos = player.position + map.cols
+    if next_pos <= #map.cells then
+      Player.move_to(player, next_pos)
+    end
+  end
 end
