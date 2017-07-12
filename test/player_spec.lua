@@ -37,6 +37,9 @@ describe("Player", function()
   end)
 
   describe("with backpack", function()
+    -- fruits are intended to be some simple dummy data for adding/removing to backpack
+    local fruits = {"banana", "apple", "orange", "watermelon", "cherry", "peach"}
+
     before_each(function()
       Player.create_backpack(player)
     end)
@@ -58,9 +61,14 @@ describe("Player", function()
     end)
 
     describe("#num_keys", function()
-      assert.are.same(0, Player.num_keys(player))  
-      player.backpack.keys = 8
-      assert.are.same(8, Player.num_keys(player))
+      it("has no keys by default", function()
+        assert.are.same(0, Player.num_keys(player)) 
+      end)
+
+      it("returns the number of keys in the backpack", function()
+        player.backpack.keys = 8
+        assert.are.same(8, Player.num_keys(player))
+      end)
     end)
 
     describe("#give_key", function()
@@ -107,26 +115,112 @@ describe("Player", function()
 
     describe("#add_item_to_backpack", function()
       it("can add an item", function()
-        local item = "banana"
-        Player.add_item_to_backpack(player, item)
-        assert.are.same(item, player.backpack.slots[1])
+        Player.add_item_to_backpack(player, fruits[1])
+        assert.are.same(fruits[1], player.backpack.slots[1])
       end)
 
       it("can add two items and the 2nd one ends up first", function()
-        local items = {"banana", "apple"}
-        Player.add_item_to_backpack(player, items[1])
-        Player.add_item_to_backpack(player, items[2])
-        assert.are.same(items[2], player.backpack.slots[1])
-        assert.are.same(items[1], player.backpack.slots[2])
+        Player.add_item_to_backpack(player, fruits[1])
+        Player.add_item_to_backpack(player, fruits[2])
+        assert.are.same(fruits[2], player.backpack.slots[1])
+        assert.are.same(fruits[1], player.backpack.slots[2])
       end)
     end) 
 
-    describe("#drop_item_from_backpack", function()
-      it("can drop an item", function()
+    describe("#remove_item_from_backpack", function()
+      it("removes and returns an item", function()
+        Player.add_item_to_backpack(player, fruits[1])
+        assert.are.same(fruits[1], player.backpack.slots[1])
+        local removed = Player.remove_item_from_backpack(player, 1)
+        assert.are.same(fruits[1], removed, "removed item is not what was expected")
+        assert.are.same(false, player.backpack.slots[1], "backpack slot should now be empty")
       end)
     end)
 
-    describe("#swap_item_from_backpack", pending())
+    describe("#drop_item_from_backpack", function()
+      it("can drop an item", function()
+        Player.add_item_to_backpack(player, fruits[1])
+        Player.add_item_to_backpack(player, fruits[2])
+        assert.are.same(fruits[2], Player.drop_item_from_backpack(player))
+        assert.are.same(fruits[1], player.backpack.slots[1])
+      end)
+    end)
+
+    describe("#swap_item_from_backpack", function()
+      it("can swap an item", function()
+        for i = 1, 2 do
+          player.backpack.slots[i] = fruits[i]
+        end
+
+        local removed_item = Player.swap_item_from_backpack(player, fruits[3])
+        assert.are.same(fruits[1], removed_item, "removed item is not what was expected")
+        assert.are.same(fruits[3], player.backpack.slots[1], "new item was not swapped in to place")
+      end)
+
+      it("can swap even if the slot is empty", function()
+        local removed_item = Player.swap_item_from_backpack(player, fruits[4])
+        assert.are.same(false, removed_item)
+        assert.are.same(fruits[4], player.backpack.slots[1])
+      end)
+    end)
+
+    describe("#collect_wood", function()
+      it("collects wood", function()
+        local num_wood = player.backpack.wood
+        Player.collect_wood(player, 1)
+        assert.are.same(num_wood + 1, player.backpack.wood)
+      end)
+    end)
+
+    describe("#collect_food", function()
+      it("collects food", function()
+        Player.collect_food(player, fruits[1])
+        assert.are.same(fruits[1], player.backpack.food[1])
+        assert.are.same(1, #player.backpack.food)
+      end)
+    end)
+
+    describe("#eat_food", function()
+      local food_item = nil
+
+      before_each(function()
+        food_item = { type = "apple", value = 1 }
+      end)
+
+      it("can not eat food without food in the backpack", function()
+        assert.are.same(0, #player.backpack.food)
+        local ate = Player.eat_food(player)
+        assert.are.same(false, ate)
+        assert.are.same(0, #player.backpack.food)
+      end)
+
+      it("can eat food", function()
+        Player.collect_food(player, food_item)
+        local ate = Player.eat_food(player)
+        assert.are.same(food_item, ate, "didn't get expected item back")
+        assert.are.same(0, #player.backpack.food, "player should have no food remaining")
+      end)
+
+      it("gains energy from food", function()
+        local energy = player.energy
+        Player.collect_food(player, food_item)
+        Player.eat_food(player)
+        assert.are.same(energy + food_item.value, player.energy, "player should have more energy now")
+      end)
+
+      it("allows the player to eat more than one food at a time", function()
+        local energy = player.energy
+        local amount = 3
+        for i = 1, amount do
+          Player.collect_food(player, food_item)
+          energy = energy + food_item.value
+        end
+
+        Player.eat_food(player, amount)
+        assert.are.same(energy, player.energy)
+      end)
+    end)
+
   end) -- end 'with backpack' tests
 
   it("#set_position", function()
@@ -140,12 +234,9 @@ describe("Player", function()
     Player.move_to(player, 77)
     assert.are.same(77, player.position)
   end)
+
   describe("#create_tool", pending())
   describe("#use_tool", pending())
-  describe("#collect_wood", pending())
-  describe("#collect_gem", pending())
-  describe("#eat_food", pending())
-  describe("#collect_food", pending())
   describe("#build_tent", pending())
   describe("#sleep", pending())
   describe("#wake_up", pending())

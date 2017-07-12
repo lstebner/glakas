@@ -216,6 +216,15 @@ describe("Backpack", function()
     end)
   end)
 
+  describe("#swap_item", function()
+    it("can swap out an item", function()
+      fill_backpack(backpack, {"apple", "banana", "carrots"})
+      local removed_item = Backpack.swap_item(backpack, 1, "watermelon")
+      assert.are.same("watermelon", backpack.slots[1], "expected backpack to contain the new item")
+      assert.are.same("apple", removed_item, "removed item is an unexpected item")
+    end)
+  end)
+
   it("#add_gold", function()
     local num_gold = backpack.gold
     local add_amount = 99
@@ -240,11 +249,11 @@ describe("Backpack", function()
   end)
 
   describe("#add_food", function()
-
     it("can add food", function()
       local num_food = #backpack.food
       local add_foods = list_of_foods()
       local added = Backpack.add_food(backpack, add_foods)
+      assert.are.same(add_foods[1], backpack.food[1])
       assert.are.same(num_food + #add_foods, #backpack.food)
       assert.are.same(true, added)
     end)
@@ -326,6 +335,40 @@ describe("Backpack", function()
       Backpack.add_key(backpack, 1)
       Backpack.remove_key(backpack, 99)
       assert.is_true(backpack.keys > -1, "keys should not be negative")
+    end)
+  end)
+
+  describe("#add_wood", function()
+    it("can add wood", function()
+      local num_wood = backpack.wood
+      local amount = 5
+      Backpack.add_wood(backpack, amount)
+      assert.are.same(backpack.wood, num_wood + amount)
+    end)
+
+    it("can not add more than max_wood allows", function()
+      Backpack.add_wood(backpack, backpack.max_wood * 100)
+      assert.are.same(backpack.wood, backpack.max_wood)
+    end)
+
+    it("can add partial amounts and return the leftovers when adding too much wood", function()
+      local extra = Backpack.add_wood(backpack, backpack.max_wood + 1, false)
+      assert.are.same(1, extra)
+    end)
+  end)
+
+  describe("#remove_wood", function()
+    it("can remove wood", function()
+      backpack.wood = backpack.max_wood
+      Backpack.remove_wood(backpack, 1)
+      assert.are.same(backpack.max_wood - 1, backpack.wood)
+    end)
+
+    it("can not remove more wood than it has", function()
+      backpack.wood = 1
+      local num_removed = Backpack.remove_wood(backpack, 2)
+      assert.are.same(1, num_removed)
+      assert.are.same(0, backpack.wood)
     end)
   end)
 end)

@@ -128,3 +128,65 @@ function Player.add_item_to_backpack(player, item)
 
   return false
 end
+
+function Player.remove_item_from_backpack(player, item_idx)
+  item_idx = item_idx or 1
+  if Player.has_backpack(player) then
+    return Backpack.remove_item(player.backpack, item_idx)
+  end
+
+  return false
+end
+
+function Player.drop_item_from_backpack(player)
+  if Player.has_backpack(player) then
+    return Player.remove_item_from_backpack(player, 1)
+  end
+
+  return false
+end
+
+function Player.swap_item_from_backpack(player, new_item)
+  if Player.has_backpack(player) then
+    return Backpack.swap_item(player.backpack, 1, new_item)
+  end
+
+  return false
+end
+
+function Player.collect_food(player, food_item)
+  if Player.has_backpack(player) then
+    return Backpack.add_food(player.backpack, {food_item}, true)
+  end
+end
+
+function Player.eat_food(player, amount)
+  amount = amount or 1
+
+  if Player.has_backpack(player) then
+    local food_item = Backpack.remove_food(player.backpack, 1)
+
+    if food_item then
+      local energy = food_item.energy or 1
+      player.energy = player.energy + energy
+
+      if amount > 1 then
+        Player.eat_food(player, amount - 1)
+      else
+        return food_item
+      end
+    end
+  end
+
+  return false
+end
+
+function Player.collect_wood(player, amount)
+  if Player.has_backpack(player) then
+    Backpack.add_wood(player.backpack, amount)
+  end
+end
+
+
+
+

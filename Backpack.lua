@@ -117,6 +117,22 @@ function Backpack.remove_item(backpack, item_idx)
   return removed_item
 end
 
+function Backpack.swap_item(backpack, item_idx, new_item)
+  if item_idx < 1 or item_idx > backpack.max_slots then
+    return false
+  end
+  
+  local removed_item = false
+
+  if backpack.slots[item_idx] then
+    removed_item = backpack.slots[item_idx]
+  end
+
+  backpack.slots[item_idx] = new_item
+
+  return removed_item
+end
+
 function Backpack.shift_slots(backpack, dir)
   -- at least one slot must be open (top or bottommost) to shift items
   if Backpack.is_full(backpack) then
@@ -182,7 +198,7 @@ function Backpack.add_food(backpack, items, all_or_nothing)
     end
 
     return true
-  elseif amount == 1 or all_or_nothing then
+  elseif add_amount == 1 or all_or_nothing then
     return false
   else -- add as much as possible, return leftovers
     local can_fit = backpack.max_food - amount
@@ -222,5 +238,34 @@ function Backpack.num_empty_slots(backpack)
   end
 
   return count
+end
+
+function Backpack.add_wood(backpack, add_amount, all_or_nothing)
+  if backpack.wood == backpack.max_wood or add_amount < 1 then
+    return false
+  end
+
+  all_or_nothing = all_or_nothing or false
+
+  local inspect = require("inspect")
+
+  if backpack.wood + add_amount < backpack.max_wood then
+    backpack.wood = backpack.wood + add_amount
+
+    return true
+  elseif add_amount == 1 or all_or_nothing then
+    return false
+  else 
+    local can_fit = backpack.max_wood - backpack.wood
+    backpack.wood = backpack.max_wood
+
+    return add_amount - can_fit --leftover amount
+  end
+end
+
+function Backpack.remove_wood(backpack, remove_amount)
+  local num_wood = backpack.wood
+  backpack.wood = math.max(0, backpack.wood - remove_amount)
+  return math.max(0, num_wood - backpack.wood)
 end
 

@@ -236,6 +236,7 @@ props = {
 - add_item:
 - remove_item:
 - shift_items:
+- swap_item: 
 - add_gold:
 - remove_gold:
 - add_food:
