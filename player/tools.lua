@@ -1,5 +1,3 @@
-local inspect = require("inspect")
-
 function player.create_axe()
   if player.wood < wood_reqs.create_axe then
     player.log_msg("not enough wood to create axe")
@@ -190,12 +188,10 @@ function player.use_tool()
       log_string = " wood collected"
       if c.cell_props == nil then
         print("trying to collect wood, but "..c.idx.." has no cell_props")
-        print(inspect(c))
         player.collect_wood(1)
       else
         player.collect_wood(c.cell_props.size)
         if c.cell_props.fruited then
-          print("tree with fruit"..inspect(c))
           table.insert(spawn_food, c.idx)
           player.log_msg "that tree had some fruit growing on it!"
         end

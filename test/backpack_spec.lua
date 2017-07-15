@@ -1,7 +1,5 @@
 require '../Backpack'
 
-local inspect = require("inspect")
-
 describe("Backpack", function()
   local backpack = nil
   require 'test/helpers/backpack_helper'

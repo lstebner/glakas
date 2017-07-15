@@ -1,9 +1,8 @@
 World = {}
-local inspect = require("inspect")
 
 require "Map"
 require "Player"
-require "copy"
+require "helpers/copy"
 
 local DEFAULT_PROPS = {
   num_maps = 0,

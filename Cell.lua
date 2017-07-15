@@ -1,8 +1,6 @@
 Cell = {}
 
-local inspect = require("inspect")
-
-require 'copy'
+require 'helpers/copy'
 
 local DEFAULT_PROPS = {
   idx = -1,

@@ -1,4 +1,3 @@
-local inspect = require("inspect")
 
 -- initialize backpack
 player.backpack[0] = { type = "empty", props = {} }
@@ -100,7 +99,7 @@ function player.put_item_in_backpack(item_idx, type, props)
   end
   type = type or "empty"
   props = props or {}
-  print("add to backpack "..type.." || "..inspect(props))
+  print("add to backpack "..type)
 
   player.backpack[item_idx] = { type = type, props = props }
 end

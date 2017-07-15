@@ -4,7 +4,6 @@ require("coords")
 require("glakas")
 require("player")
 require("gem")
-local inspect = require("inspect")
 
 function love.load()
   math.randomseed(os.time())

@@ -1,5 +1,3 @@
-local inspect = require("inspect")
-
 require "colors"
 
 glakas = {

@@ -1,7 +1,5 @@
 require '../Player'
 
-local inspect = require("inspect")
-
 describe("Player", function()
   local player = nil
   local player_name = "ahhsumx"

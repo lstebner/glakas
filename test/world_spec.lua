@@ -1,7 +1,5 @@
 require '../World'
 
-local inspect = require("inspect")
-
 describe("World", function()
   it("#create", function()
     local world = World.create({num_maps = 2})

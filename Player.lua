@@ -3,8 +3,6 @@ Player = {}
 require "Backpack"
 require "Tool"
 
-local inspect = require('inspect')
-
 Player.DEFAULT_PROPS = {
   name = "hero",
   position = 1,

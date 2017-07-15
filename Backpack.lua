@@ -1,4 +1,4 @@
-require "copy"
+require "helpers/copy"
 
 Backpack = {}
 
@@ -186,7 +186,6 @@ function Backpack.add_food(backpack, items, all_or_nothing)
   if #backpack.food == backpack.max_food or #items == 0 then
     return false
   end
-  local inspect = require("inspect")
 
   local amount = #backpack.food
   local add_amount = #items
@@ -247,8 +246,6 @@ function Backpack.add_wood(backpack, add_amount, all_or_nothing)
   end
 
   all_or_nothing = all_or_nothing or false
-
-  local inspect = require("inspect")
 
   if backpack.wood + add_amount < backpack.max_wood then
     backpack.wood = backpack.wood + add_amount

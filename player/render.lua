@@ -1,5 +1,3 @@
-local inspect = require("inspect")
-
 require("status_bar")
 
 function player.draw_log()

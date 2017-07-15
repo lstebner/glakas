@@ -1,7 +1,6 @@
 Map = {}
 
-local inspect = require("inspect")
-require "copy"
+require "helpers/copy"
 require "Cell"
 
 local DEFAULT_PROPS = {

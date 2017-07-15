@@ -1,5 +1,4 @@
 require '../Map'
-local inspect = require("inspect")
 
 describe("Map", function()
   it("#create", function()
