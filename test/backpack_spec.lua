@@ -371,4 +371,33 @@ describe("Backpack", function()
       assert.are.same(0, backpack.wood)
     end)
   end)
+
+  describe("#add_tent", function()
+    it("can add a tent", function()
+      assert.are.same(0, backpack.tents)
+      Backpack.add_tent(backpack)
+      assert.are.same(1, backpack.tents)
+    end)
+
+    it("can add multiple tents", function()
+      local num_tents = backpack.tents
+      local add_amount = 1500
+      Backpack.add_tent(backpack, add_amount)
+      assert.are.same(num_tents + add_amount, backpack.tents)
+    end)
+  end)
+
+  describe("#remove_tent", function()
+    it("does nothing if there are no tents", function()
+    end)
+
+    it("can remove a tent", function()
+    end)
+
+    it("can remove multiple tents", function()
+    end)
+
+    it("can not remove more tents than it has", function()
+    end)
+  end)
 end)

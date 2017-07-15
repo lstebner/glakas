@@ -6,6 +6,8 @@ describe("Player", function()
   local player = nil
   local player_name = "ahhsumx"
 
+  require 'test/helpers/player_helper'
+
   before_each(function()
     player = Player.create({
       name = player_name,
@@ -221,6 +223,94 @@ describe("Player", function()
       end)
     end)
 
+    describe("#create_tool", function()
+      local wood_reqs = Player.WOOD_REQS
+
+      describe("axe", function()
+        it("can not create an axe without enough wood", function()
+          local created = Player.create_tool(player, "axe")
+          assert.is_false(created)
+          assert.is_false(Player.has_tool(player, "axe"))
+        end)
+
+        it("can create an axe with enough wood", function()
+          player.backpack.wood = wood_reqs.create_axe
+          local created = Player.create_tool(player, "axe")
+          assert.is_truthy(created)
+          assert.is_true(Player.has_tool(player, "axe"))
+        end)
+
+        it("can not create an axe if the player already has one", function()
+          give_player_tool(player, "axe")
+          player.backpack.wood = wood_reqs.create_axe
+          local created = Player.create_tool(player, "axe")
+          assert.is_false(created)
+          assert.is_true(Player.has_tool(player, "axe"))
+        end)
+      end)
+
+      describe("pickaxe", function()
+        it("can not create a pickaxe without enough wood", function()
+          local created = Player.create_tool(player, "pickaxe")
+          assert.is_false(created)
+          assert.is_false(Player.has_tool(player, "pickaxe"))
+        end)
+
+        it("can create a pickaxe with enough wood", function()
+          player.backpack.wood = wood_reqs.create_pickaxe
+          local created = Player.create_tool(player, "pickaxe")
+          assert.is_truthy(created)
+          assert.is_true(Player.has_tool(player, "pickaxe"))
+        end)
+
+        it("can not create a pickaxe if the player already has one", function()
+          give_player_tool(player, "pickaxe")
+          player.backpack.wood = wood_reqs.create_pickaxe
+          local created = Player.create_tool(player, "pickaxe")
+          assert.is_false(created)
+          assert.is_true(Player.has_tool(player, "pickaxe"))
+        end)
+      end)
+
+      describe("shovel", function()
+        it("can not create a shovel without enough wood", function()
+          local created = Player.create_tool(player, "shovel")
+          assert.is_false(created)
+          assert.is_false(Player.has_tool(player, "shovel"))
+        end)
+
+        it("can create a shovel with enough wood", function()
+          player.backpack.wood = wood_reqs.create_shovel
+          local created = Player.create_tool(player, "shovel")
+          assert.is_truthy(created)
+          assert.is_true(Player.has_tool(player, "shovel"))
+        end)
+
+        it("can not create a shovel if the player already has one", function()
+          give_player_tool(player, "shovel")
+          player.backpack.wood = wood_reqs.create_shovel
+          local created = Player.create_tool(player, "shovel")
+          assert.is_false(created)
+          assert.is_true(Player.has_tool(player, "shovel"))
+        end)
+      end)
+    end)
+
+    describe("#create_tent", function()
+      it("can not create a tent without wood", function()
+        local created = Player.create_tent(player)
+        assert.is_false(created)
+        assert.are.same(0, player.backpack.tents)
+      end)
+
+      it("can create a tent", function()
+        player.backpack.wood = Player.WOOD_REQS.create_tent
+        local created = Player.create_tent(player)
+        assert.is_truthy(created)
+        assert.are.same(1, player.backpack.tents)
+      end)
+    end)
+
   end) -- end 'with backpack' tests
 
   it("#set_position", function()
@@ -235,9 +325,29 @@ describe("Player", function()
     assert.are.same(77, player.position)
   end)
 
-  describe("#create_tool", pending())
+  describe("#has_tool", function()
+    local tools_list = {"axe", "duct tape"}
+    
+    before_each(function()
+      for i, t in pairs(tools_list) do
+        give_player_tool(player, t)
+      end
+    end)
+
+    it("returns true when the player has a tool", function()
+      for i, t in pairs(tools_list) do
+        assert.is_true(Player.has_tool(player, t))
+      end
+    end)
+
+    it("returns false when the player doesn't have a tool", function()
+      assert.is_false(Player.has_tool(player, "pencil"))
+    end)
+  end)
+
+
   describe("#use_tool", pending())
-  describe("#build_tent", pending())
+
   describe("#sleep", pending())
   describe("#wake_up", pending())
   describe("#log_msg", pending())

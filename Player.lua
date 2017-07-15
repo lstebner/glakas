@@ -1,6 +1,9 @@
 Player = {}
 
 require "Backpack"
+require "Tool"
+
+local inspect = require('inspect')
 
 Player.DEFAULT_PROPS = {
   name = "hero",
@@ -185,6 +188,48 @@ function Player.collect_wood(player, amount)
   if Player.has_backpack(player) then
     Backpack.add_wood(player.backpack, amount)
   end
+end
+
+function Player.create_tool(player, tool_name)
+  if Player.has_backpack(player) == false or Player.has_tool(player, tool_name) then
+    return false
+  end
+
+  local key = "create_"..tool_name
+  local wood_req = Player.WOOD_REQS[key]
+
+  if wood_req and player.backpack.wood >= wood_req then
+    Backpack.remove_wood(player.backpack, wood_req)
+    local new_tool = Tool.create({ name = tool_name })
+    table.insert(player.tools, new_tool)
+
+    return new_tool
+  end
+
+  return false
+end
+
+function Player.has_tool(player, tool_name)
+  for i, tool in pairs(player.tools) do
+    if tool.name and tool.name == tool_name then
+      return true
+    end
+  end
+
+  return false
+end
+
+function Player.create_tent(player)
+  if Player.has_backpack(player) then
+    if player.backpack.wood >= Player.WOOD_REQS.create_tent then
+      Backpack.add_tent(player.backpack)
+      Backpack.remove_wood(player.backpack, Player.WOOD_REQS.create_tent)
+      player.num_tents_built = player.num_tents_built + 1
+      return true
+    end
+  end
+
+  return false
 end
 
 

@@ -15,6 +15,7 @@ function Backpack.create(props)
     gold = 0,
     wood = 0,
     keys = 0,
+    tents = 0,
     food = {},
     slots = {},
   }
@@ -269,3 +270,12 @@ function Backpack.remove_wood(backpack, remove_amount)
   return math.max(0, num_wood - backpack.wood)
 end
 
+function Backpack.add_tent(backpack, amount)
+  amount = amount or 1
+  backpack.tents = backpack.tents + amount
+end
+
+function Backpack.remove_tent(backpack, amount)
+  amount = amount or 1
+  backpack.tents = math.max(0, backpack.tents - amount)
+end
