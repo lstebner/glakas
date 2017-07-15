@@ -56,12 +56,12 @@ describe("World", function()
     assert.are.same(map, world.maps[2])
   end)
 
-  it("#maps", function()
+  it("#get_maps", function()
     local world = World.create({ num_maps = 2 })
     assert.are.same(world.maps, World.get_maps(world))
   end)
 
-  it("#update_world", function()
+  it("#update", function()
     local world = World.create()
     assert.are.same(0, world.time.ticks)
     for i = 1, 5 do

@@ -72,6 +72,8 @@ props = {
 - get_surrounding_cells: gets all cells around a specified cell
 - get_cells_of_type: gets all cells of a specified type
 - update: updates a map, called by World#update_world
+- can_player_move_to: check if the player can move to a certain cell
+- move_player: move the player to a new cell
 
 
 # Player
@@ -119,7 +121,7 @@ static GOLD_REQS = {
 - move_to: moves the player to a specific cell
 - add_item_to_backpack: add something to the backpack
 - drop_item_from_backpack: drops the top item in the backpack
-- swap_item_in_backpack: swaps the topmost item with another item
+- swap_item_from_backpack: swaps the topmost item with another item
 - create_tool: creates a tool, using up wood
 - use_tool: uses the applicable tool on the current cell
 - collect_wood: collects wood in the backpack
