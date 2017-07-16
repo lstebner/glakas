@@ -1,4 +1,6 @@
+require 'test/helpers/love_stub'
 require '../Map'
+require '../Player'
 
 describe("Map", function()
   it("#create", function()
@@ -256,9 +258,38 @@ describe("Map", function()
     pending()
   end)
 
-  describe("#move_player", function()
-    require '../Player'
+  describe("#can_player_move_to", function()
+    local map = nil
+    local player = nil
 
+    before_each(function()
+      map = Map.create({})
+      Map.create_cells(map, 4, "empty")
+      -- player stub
+      player = {
+        last_move_time = -1000,
+        position = 1,
+      }
+    end)
+
+    it("returns true when a tile is allowed to be moved to", function()
+      local can_move = Map.can_player_move_to(map, 2, player)
+      assert.is_true(can_move)
+    end)
+
+    it("returns false when a tile can not be moved to", function()
+      map.impassable_cell_types = {"empty"}
+      local can_move = Map.can_player_move_to(map, 2, player)
+      assert.is_false(can_move)
+    end)
+
+    it("returns false when the player is already on the tile", function()
+      local can_move = Map.can_player_move_to(map, 1, player)
+      assert.is_false(can_move)
+    end)
+  end)
+
+  describe("#move_player", function()
     local player = nil
     local map = nil
 

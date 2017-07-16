@@ -18,6 +18,7 @@ function Map.create(props)
     total_cells = 0,
     cells = {},
     grid_size = props.grid_size,
+    impassable_cell_types = {},
   }
 
   Map.create_cells(new_map, new_map.rows * new_map.cols, props.cells)
@@ -185,18 +186,26 @@ end
 function Map.update(map, world)
 end
 
-function Map.can_player_move_to(map, new_pos)
-  local cell = Map.get_cell(new_pos)
-
-  -- throttle move speed
-  if love.timer.getTime() * 1000 < player.last_move_time + 200 then
-    return false
-  end
+function Map.can_player_move_to(map, new_pos, player)
+  local cell = Map.get_cell(map, new_pos)
 
   if cell then
-    -- todo: add `impassable_cell_types` prop to Map
-    return cell.type ~= "stone" and cell.type ~= "water"
+    if cell.idx == player.position then
+      return false
+    end
+
+    if map.impassable_cell_types then
+      for i, t in pairs(map.impassable_cell_types) do
+        if cell.type == t then
+          return false
+        end
+      end
+    end
+
+    return true
   end
+
+  return false
 end
 
 function Map.move_player(map, player, dir)
