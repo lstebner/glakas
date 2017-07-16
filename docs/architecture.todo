@@ -39,7 +39,7 @@ Map:
   ✔ reset_cell @done (17-07-15 14:25)
 
   map_spec:
-   ☐ can_player_move_to
+   ✔ can_player_move_to @done (17-07-16 15:40)
    ☐ update
    ✔ create @done (17-07-15 14:26)
    ✔ create_cell @done (17-07-15 14:26)
@@ -55,11 +55,7 @@ Map:
    ✔ reset_cell @done (17-07-15 14:26)
 
 Player:
-  ☐ build_tent
-  ☐ collect_gem
   ☐ log_msg
-  ☐ move
-  ☐ open_chest
   ☐ sleep
   ☐ use_tool
   ☐ wake_up
@@ -78,6 +74,7 @@ Player:
   ✔ has_tool @done (17-07-15 14:40)
   ✔ move_to @done (17-07-15 14:39)
   ✔ num_keys @done (17-07-15 14:38)
+  ✔ open_chest @done (17-07-16 16:10)
   ✔ remove_item_from_backpack @done (17-07-15 14:39)
   ✔ set_position @done (17-07-15 14:39)
   ✔ swap_item_from_backpack @done (17-07-15 14:39)
@@ -85,11 +82,7 @@ Player:
   ✔ use_key @done (17-07-15 14:39)
 
   player_spec:
-    ☐ build_tent
-    ☐ collect_gem
     ☐ log_msg
-    ☐ move
-    ☐ open_chest
     ☐ sleep
     ☐ use_tool
     ☐ wake_up
@@ -109,6 +102,7 @@ Player:
     ✔ has_tool @done (17-07-15 14:50)
     ✔ move_to @done (17-07-15 14:50)
     ✔ num_keys @done (17-07-15 14:49)
+    ✔ open_chest @done (17-07-16 16:10)
     ✔ remove_item_from_backpack @done (17-07-15 14:49)
     ✔ set_position @done (17-07-15 14:50)
     ✔ swap_item_from_backpack @done (17-07-15 14:49)
