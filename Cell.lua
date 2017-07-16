@@ -10,12 +10,17 @@ local DEFAULT_PROPS = {
 Cell.DEFAULT_CELL_PROPS = {
   default = {},
   empty = { flowered = false },
-  door = { connecting_map_idx = -1 }
+  door = { connecting_map_idx = -1 },
+  chest = {
+    num_locks = 1,
+    stored_items = {},
+  }
 }
 
 function Cell.create(props)
-  props = props or DEFAULT_PROPS
+  props = props or shallowcopy(DEFAULT_PROPS)
   local cell = shallowcopy(props)
+  local inspect = require('helpers/inspect')
 
   cell.cell_props = Cell.default_cell_props_for(cell.type)
 

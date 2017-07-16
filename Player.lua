@@ -230,6 +230,22 @@ function Player.create_tent(player)
   return false
 end
 
+function Player.open_chest(player, chest)
+  local got_items = false
+
+  if Player.has_backpack(player) then
+    if player.backpack.keys >= chest.cell_props.num_locks then
+      Backpack.remove_key(player.backpack, chest.cell_props.num_locks)
+      got_items = shallowcopy(chest.cell_props.stored_items)
+      chest.cell_props.stored_items = {}
+    end
+  end
+
+  return got_items
+end
+
+
+
 
 
 

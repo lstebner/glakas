@@ -1,4 +1,6 @@
 require '../Player'
+require '../Cell'
+require 'helpers/copy'
 
 describe("Player", function()
   local player = nil
@@ -306,6 +308,41 @@ describe("Player", function()
         local created = Player.create_tent(player)
         assert.is_truthy(created)
         assert.are.same(1, player.backpack.tents)
+      end)
+    end)
+
+    describe("#open_chest", function()
+      local chest = nil
+
+      before_each(function()
+        player.backpack.keys = 1
+        
+        chest = Cell.create({
+          type = "chest",
+          cell_props = {
+            num_locks = 1,
+            stored_items = {},
+          }
+        })
+      end)
+
+      it("allows the player to open a chest with enough keys", function()
+        local opened = Player.open_chest(player, chest)
+        assert.is_truthy(opened)
+      end)
+
+      it("returns the items inside when opened", function()
+        local store_items = {"banana"}
+        chest.cell_props.stored_items =  shallowcopy(store_items)
+        local got_items = Player.open_chest(player, chest)
+        assert.are.same(store_items, got_items)
+        assert.are.same({}, chest.cell_props.stored_items)
+      end)
+
+      it("does not allow the player to open the chest without having enough keys", function()
+        chest.cell_props.num_locks = 10
+        local opened = Player.open_chest(player, chest)
+        assert.is_false(opened)
       end)
     end)
 
