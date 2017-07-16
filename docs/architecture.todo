@@ -1,6 +1,6 @@
 
 
-# World
+World:
  ✔ create @done (17-07-15 14:21)
  ✔ create_map @done (17-07-15 14:21)
  ✔ create_player @done (17-07-15 14:21)
@@ -11,7 +11,7 @@
  ✔ player_position @done (17-07-15 14:21)
  ✔ update @done (17-07-15 14:21)
 
-  # world_spec
+  world_spec:
     ✔ create @done (17-07-15 14:22)
     ✔ create_map @done (17-07-15 14:22)
     ✔ create_player @done (17-07-15 14:22)
@@ -22,7 +22,7 @@
     ✔ player_position @done (17-07-15 14:22)
     ✔ update @done (17-07-15 14:23)
 
-# Map
+Map:
   ☐ update
   ✔ can_player_move_to @done (17-07-15 14:25)
   ✔ create @done (17-07-15 14:25)
@@ -38,7 +38,7 @@
   ✔ move_player @done (17-07-15 14:25)
   ✔ reset_cell @done (17-07-15 14:25)
 
- # map_spec
+  map_spec:
    ☐ can_player_move_to
    ☐ update
    ✔ create @done (17-07-15 14:26)
@@ -54,7 +54,7 @@
    ✔ move_player @done (17-07-15 14:27)
    ✔ reset_cell @done (17-07-15 14:26)
 
-# Player
+Player:
   ☐ build_tent
   ☐ collect_gem
   ☐ log_msg
@@ -73,7 +73,6 @@
   ✔ create_tent @done (17-07-15 14:40)
   ✔ create_tool @done (17-07-15 14:40)
   ✔ drop_item_from_backpack @done (17-07-15 14:39)
-  
   ✔ give_key @done (17-07-15 14:38)
   ✔ has_backpack @done (17-07-15 14:38)
   ✔ has_tool @done (17-07-15 14:40)
@@ -85,7 +84,7 @@
   ✔ upgrade_backpack @done (17-07-15 14:34)
   ✔ use_key @done (17-07-15 14:39)
 
-  # player_spec
+  player_spec:
     ☐ build_tent
     ☐ collect_gem
     ☐ log_msg
@@ -115,3 +114,157 @@
     ✔ swap_item_from_backpack @done (17-07-15 14:49)
     ✔ upgrade_backpack @done (17-07-15 14:48)
     ✔ use_key @done (17-07-15 14:49)
+
+Cell:
+  ☐ collect 
+  ☐ get_cell_props
+  ☐ update 
+  ✔ create @done (17-07-15 21:14)
+  ✔ default_cell_props_for @done (17-07-15 21:15)
+  ✔ disguise @done (17-07-15 21:15)
+  ✔ is_disguised @done (17-07-15 21:16)
+  ✔ undisguise @done (17-07-15 21:15)
+
+  cell_spec:
+    ☐ collect 
+    ☐ create
+    ☐ default_cell_props_for
+    ☐ disguise
+    ☐ get_cell_props
+    ☐ is_disguised
+    ☐ undisguise
+    ☐ update 
+
+
+Cell.Tree:
+  ☐ collect
+  ☐ create
+  ☐ create_forest
+  ☐ create_tree_sapling
+  ☐ fruit_tree
+  ☐ grow_tree
+  ☐ grow_tree_sapling
+  ☐ grow_trees_in_map
+
+  cell_tree_spec:
+    ☐ collect
+    ☐ create
+    ☐ create_forest
+    ☐ create_tree_sapling
+    ☐ fruit_tree
+    ☐ grow_tree
+    ☐ grow_tree_sapling
+    ☐ grow_trees_in_map
+
+Cell.Food:
+ ☐ create
+ ☐ collect
+
+ cell_food_spec:
+   ☐ create
+   ☐ collect
+
+Cell.Door:
+ ☐ create
+ ☐ get_connecting_map
+
+  cell_door_spec:
+   ☐ create
+   ☐ get_connecting_map
+Cell.Chest:
+  ☐ create
+  ☐ collect
+
+  cell_chest_spec:
+    ☐ create
+    ☐ collect
+
+Cell.Mushroom:
+  ☐ create
+  ☐ collect
+
+  cell_mushroom_spec:
+    ☐ create
+    ☐ collect
+
+Cell.Water:
+  ☐ create
+  ☐ create_lake
+  ☐ create_stream
+
+  cell_water_spec:
+    ☐ create
+    ☐ create_lake
+    ☐ create_stream
+
+Cell.Gem:
+  ☐ create
+  ☐ get_type
+
+  cell_gem_spec:
+    ☐ create
+    ☐ get_type
+
+Backpack:
+ ✔ add_food @done (17-07-15 21:59)
+ ✔ add_gold @done (17-07-15 21:57)
+ ✔ add_item @done (17-07-15 21:56)
+ ✔ add_key @done (17-07-15 21:59)
+ ✔ add_tent @done (17-07-15 22:00)
+ ✔ add_wood @done (17-07-15 22:00)
+ ✔ create @done (17-07-15 21:56)
+ ✔ get_first_item @done (17-07-15 21:56)
+ ✔ get_item @done (17-07-15 21:56)
+ ✔ get_items @done (17-07-15 21:56)
+ ✔ get_last_item @done (17-07-15 21:56)
+ ✔ is_full @done (17-07-15 21:56)
+ ✔ num_empty_slots @done (17-07-15 21:59)
+ ✔ num_items @done (17-07-15 21:56)
+ ✔ num_slots @done (17-07-15 21:59)
+ ✔ remove_food @done (17-07-15 21:59)
+ ✔ remove_gold @done (17-07-15 21:59)
+ ✔ remove_item @done (17-07-15 21:57)
+ ✔ remove_key @done (17-07-15 21:59)
+ ✔ remove_tent @done (17-07-15 22:00)
+ ✔ remove_wood @done (17-07-15 22:00)
+ ✔ shift_slots @done (17-07-15 21:57)
+ ✔ swap_item @done (17-07-15 21:57)
+ ✔ upgrade @done (17-07-15 21:56)
+
+ backpack_spec:
+   ✔ add_food @done (17-07-15 22:05)
+   ✔ add_gold @done (17-07-15 22:05)
+   ✔ add_item @done (17-07-15 22:04)
+   ✔ add_key @done (17-07-15 22:05)
+   ✔ add_tent @done (17-07-15 22:05)
+   ✔ add_wood @done (17-07-15 22:05)
+   ✔ create @done (17-07-15 22:04)
+   ✔ get_first_item @done (17-07-15 22:04)
+   ✔ get_item @done (17-07-15 22:04)
+   ✔ get_items @done (17-07-15 22:04)
+   ✔ get_last_item @done (17-07-15 22:04)
+   ✔ is_full @done (17-07-15 22:04)
+   ✔ num_empty_slots @done (17-07-15 22:04)
+   ✔ num_items @done (17-07-15 22:04)
+   ✔ num_slots @done (17-07-15 22:04)
+   ✔ remove_food @done (17-07-15 22:05)
+   ✔ remove_gold @done (17-07-15 22:05)
+   ✔ remove_item @done (17-07-15 22:05)
+   ✔ remove_key @done (17-07-15 22:05)
+   ☐ remove_tent
+   ✔ remove_wood @done (17-07-15 22:05)
+   ✔ shift_slots @done (17-07-15 22:04)
+   ✔ swap_item @done (17-07-15 22:05)
+   ✔ upgrade @done (17-07-15 22:04)
+
+Tool:
+ ☐ create
+ ☐ needs_repair
+ ☐ repair
+ ☐ use
+
+ tool_spec:
+   ☐ create
+   ☐ needs_repair
+   ☐ repair
+   ☐ use

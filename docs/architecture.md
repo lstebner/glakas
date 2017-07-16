@@ -149,10 +149,12 @@ props = {
 
 - create:
 - get_cell_props:
-- disguise_cell:
-- undisguise_cell:
+- disguise:
+- undisguise:
+- is_disguised: 
 - update: 
 - collect: 
+- default_cell_props_for: 
 
 ## Cell.Tree
 
@@ -226,25 +228,30 @@ props = {
   max_wood = #
 }
 
+- add_food:
+- add_gold:
+- add_item:
+- add_key: 
+- add_tent:
+- add_wood:
 - create:
-- get_item:
 - get_first_item:
-- get_last_item:
+- get_item:
 - get_items:
+- get_last_item:
+- is_full:
+- num_empty_slots:
 - num_items:
 - num_slots:
-- num_empty_slots:
-- is_full:
-- add_item:
-- remove_item:
-- shift_items:
-- swap_item: 
-- add_gold:
-- remove_gold:
-- add_food:
 - remove_food:
-- add_key: 
+- remove_gold:
+- remove_item:
 - remove_key:
+- remove_tent:
+- remove_wood:
+- shift_slots:
+- swap_item: 
+- upgrade:
 
 # Tool
 
