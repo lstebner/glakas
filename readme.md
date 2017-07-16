@@ -6,6 +6,8 @@ An adventure based puzzle game
 
 This branch is a rewrite of the `master` branch which is the prototype as of now. This rewrite aims to make things much more organized as far as "classes" go and to make things more easily expandable. It also adds proper test coverage and is currently being developed in a TDD fashion. Check out the `docs/architecture*` files for an overview on game objects.
 
+*this branch will not currently build without errors. please check out the master branch for the prototype game*
+
 ## Tests
 
 Test me! Run `busted test/ --shuffle` to execute all tests.
