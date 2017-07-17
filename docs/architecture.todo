@@ -56,6 +56,8 @@ Map:
 
 Player:
   ☐ use_tool
+  ☐ repair_tool
+  ☐ upgrade_tool
   ✔ add_item_to_backpack @done (17-07-15 14:39)
   ✔ change_state @done (17-07-16 21:40)
   ✔ collect_food @done (17-07-15 14:39)
@@ -89,6 +91,8 @@ Player:
 
   player_spec:
     ☐ use_tool
+    ☐ repair_tool
+    ☐ upgrade_tool
     ✔ add_item_to_backpack @done (17-07-15 14:49)
     ✔ change_state @done (17-07-16 21:39)
     ✔ collect_food @done (17-07-15 14:49)
@@ -269,12 +273,15 @@ Tool:
  ☐ needs_repair
  ☐ repair
  ☐ use
+ ☐ upgrade
 
  tool_spec:
    ☐ create
    ☐ needs_repair
    ☐ repair
    ☐ use
+   ☐ upgrade
+
 
 State:
   ✔ create @done (17-07-16 17:38)
