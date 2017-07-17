@@ -408,4 +408,10 @@ describe("Player", function()
       end
     end)
   end)
+
+  describe("initial state", function()
+    it("creates a State on the player with the correct default state", function()
+      assert.are.same(player.state.current_state, Player.DEFAULT_STATE)
+    end)
+  end)
 end)

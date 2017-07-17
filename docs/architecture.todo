@@ -108,6 +108,7 @@ Player:
     ✔ swap_item_from_backpack @done (17-07-15 14:49)
     ✔ upgrade_backpack @done (17-07-15 14:48)
     ✔ use_key @done (17-07-15 14:49)
+    ✔ initial_state @done (17-07-16 17:42)
 
 Cell:
   ☐ collect 
@@ -262,3 +263,13 @@ Tool:
    ☐ needs_repair
    ☐ repair
    ☐ use
+
+State:
+  ✔ create @done (17-07-16 17:38)
+  ✔ update @done (17-07-16 17:38)
+  ✔ change_state @done (17-07-16 17:38)
+
+  state_spec:
+    ✔ create @done (17-07-16 17:38)
+    ✔ update @done (17-07-16 17:38)
+    ✔ change_state @done (17-07-16 17:38)

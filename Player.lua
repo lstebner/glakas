@@ -2,6 +2,7 @@ Player = {}
 
 require "Backpack"
 require "Tool"
+require "State"
 
 Player.DEFAULT_PROPS = {
   name = "hero",
@@ -29,6 +30,12 @@ Player.GOLD_REQS = {
   create_key = 9,
 }
 
+Player.STATES = {
+  standing = 1,
+}
+
+Player.DEFAULT_STATE = Player.STATES.standing
+
 function Player.create(props)
   props = props or {}
 
@@ -41,6 +48,7 @@ function Player.create(props)
     num_steps = 0,
     tools = {},
     msg_log = {},
+    state = State.create({ current_state = Player.DEFAULT_STATE }),
   }
 
   for i, prps in pairs({Player.DEFAULT_PROPS, props}) do
