@@ -316,7 +316,7 @@ describe("Player", function()
 
       before_each(function()
         player.backpack.keys = 1
-        
+
         chest = Cell.create({
           type = "chest",
           cell_props = {
@@ -385,5 +385,27 @@ describe("Player", function()
 
   describe("#sleep", pending())
   describe("#wake_up", pending())
-  describe("#log_msg", pending())
+
+  describe("#log_msg", function()
+    it("can log a message", function()
+      local msg = "hello"
+      Player.log_msg(player, msg)
+      assert.are.same(msg, player.msg_log[1])
+    end)
+
+    it("can log multiple messages at once", function()
+      local msgs = {}
+      local num_msgs = 3
+      
+      for i = 1, num_msgs do
+        table.insert(msgs, "こんにちは-"..i)
+      end
+
+      Player.log_msg(player, msgs)
+      assert.are.same(#msgs, #player.msg_log)
+      for i = 1, num_msgs do
+        assert.are.same(msgs[i], player.msg_log[i])
+      end
+    end)
+  end)
 end)

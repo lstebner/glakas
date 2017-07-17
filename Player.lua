@@ -244,6 +244,18 @@ function Player.open_chest(player, chest)
   return got_items
 end
 
+function Player.log_msg(player, msg)
+  if msg then
+    if type(msg) == "table" then
+      for i, m in pairs(msg) do
+        table.insert(player.msg_log, m)
+      end
+    else
+      table.insert(player.msg_log, msg)
+    end
+  end
+end
+
 
 
 
