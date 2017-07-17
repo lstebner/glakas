@@ -130,9 +130,10 @@ static GOLD_REQS = {
 - eat_food: eats food from a cell or backpack
 - collect_food: collects food in the backpack
 - build_tent: builds a tent using wood
-- sleep: sleeps for awhile to regain energy
+- go_to_sleep: sleeps for awhile to regain energy
 - wake_up: wake the player up from sleeping
 - log_msg: add a message to the msg_log
+- update
 
 
 # Cell

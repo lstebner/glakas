@@ -346,6 +346,29 @@ describe("Player", function()
       end)
     end)
 
+    describe("#sleep", function()
+      it("doesn't allow the player to sleep without a tent", function()
+        Player.go_to_sleep(player)
+        Player.update(player)
+        assert.are.same(Player.DEFAULT_STATE, player.state.current_state)
+      end)
+
+      it("does allow the player to go to sleep with a tent", function()
+        player.backpack.tents = 1
+        Player.go_to_sleep(player)
+        Player.update(player)
+        assert.are.same(Player.STATES.sleeping, player.state.current_state)
+      end)
+
+      it("does nothing if the player is already asleep", function()
+        player.state.current_state = Player.STATES.sleeping
+        Player.go_to_sleep(player)
+        Player.update(player)
+        assert.are.same(nil, player.state.next_state)
+        assert.are.same(Player.STATES.sleeping, player.state.current_state)
+      end)
+    end)
+
   end) -- end 'with backpack' tests
 
   it("#set_position", function()
@@ -383,8 +406,37 @@ describe("Player", function()
 
   describe("#use_tool", pending())
 
-  describe("#sleep", pending())
-  describe("#wake_up", pending())
+  describe("#wake_up", function()
+    it("does nothing if the player is already awake", function()
+      local first_state = player.state.current_state
+      Player.wake_up(player)
+      Player.update(player)
+      assert.same(first_state, player.state.current_state)
+    end)
+
+    it("can wake the player up if asleep, back to the default state", function()
+      player.state.current_state = Player.STATES.sleeping
+      Player.wake_up(player)
+      Player.update(player)
+      assert.are.same(Player.DEFAULT_STATE, player.state.current_state)
+    end)
+
+    it("can wake the player up to a custom state", function()
+      player.state.current_state = Player.STATES.sleeping
+      Player.wake_up(player, "swimming")
+      Player.update(player)
+      assert.are.same("swimming", player.state.current_state)
+    end)
+
+    it("gives the player energy when they wake up", function()
+      local starting_energy = 1
+      player.energy = starting_energy
+      player.state.current_state = Player.STATES.sleeping
+      Player.wake_up(player)
+      Player.update(player)
+      assert.is_true(player.energy > starting_energy, "player should have gained energy")
+    end)
+  end)
 
   describe("#log_msg", function()
     it("can log a message", function()
@@ -396,7 +448,7 @@ describe("Player", function()
     it("can log multiple messages at once", function()
       local msgs = {}
       local num_msgs = 3
-      
+
       for i = 1, num_msgs do
         table.insert(msgs, "こんにちは-"..i)
       end
@@ -412,6 +464,48 @@ describe("Player", function()
   describe("initial state", function()
     it("creates a State on the player with the correct default state", function()
       assert.are.same(player.state.current_state, Player.DEFAULT_STATE)
+    end)
+  end)
+
+  describe("#update", function()
+    it("updates the player's state", function()
+      pending()
+    end)
+  end)
+
+  describe("#give_energy", function()
+    it("can give the player energy", function()
+      pending()
+    end)
+  end)
+
+  describe("#take_energy", function()
+    it("can take energy from the player", function()
+      pending()
+    end)
+  end)
+
+  describe("#set_energy", function()
+    it("can set the energy", function()
+      pending()
+    end)
+
+    it("can not set energy more than their max energy", function()
+      pending()
+    end)
+
+    it("can not set energy below 0", function()
+      pending()
+    end)
+  end)
+
+  describe("#upgrade_max_energy", function()
+    it("can increase the player's max_energy", function()
+      pending()
+    end)
+
+    it("can not set max_energy below 1", function()
+      pending()
     end)
   end)
 end)

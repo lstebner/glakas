@@ -32,6 +32,7 @@ Player.GOLD_REQS = {
 
 Player.STATES = {
   standing = 1,
+  sleeping = 2,
 }
 
 Player.DEFAULT_STATE = Player.STATES.standing
@@ -177,7 +178,7 @@ function Player.eat_food(player, amount)
 
     if food_item then
       local energy = food_item.energy or 1
-      player.energy = player.energy + energy
+      Player.give_energy(player, energy)
 
       if amount > 1 then
         Player.eat_food(player, amount - 1)
@@ -261,6 +262,49 @@ function Player.log_msg(player, msg)
     else
       table.insert(player.msg_log, msg)
     end
+  end
+end
+
+function Player.update(player)
+  State.update(player.state)
+end
+
+function Player.go_to_sleep(player)
+  local inspect = require 'helpers/inspect'
+  if Player.has_backpack(player) then
+    if player.backpack.tents > 0 then
+      Backpack.remove_tent(player.backpack, 1)
+      State.change_state(player.state, Player.STATES.sleeping)
+    end
+  end
+
+  return false
+end
+
+function Player.give_energy(player, amount)
+  amount = amount or 1
+  Player.set_energy(player, player.energy + amount)
+end
+
+function Player.take_energy(player, amount)
+  amount = amount or 1
+  Player.set_energy(player, player.energy - amount)
+end
+
+function Player.set_energy(player, amount)
+  player.energy = math.min(player.max_energy, math.max(0, amount))
+end
+
+function Player.upgrade_max_energy(player, new_limit)
+  player.max_energy = math.max(1, new_limit)
+end
+
+function Player.wake_up(player, next_state)
+  next_state = next_state or Player.DEFAULT_STATE
+
+  if player.state.current_state == Player.STATES.sleeping then
+    State.change_state(player.state, next_state)
+    Player.give_energy(player, player.max_energy * .35)
   end
 end
 

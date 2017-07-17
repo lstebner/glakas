@@ -55,10 +55,14 @@ Map:
    ✔ reset_cell @done (17-07-15 14:26)
 
 Player:
-  ☐ log_msg
-  ☐ sleep
+  ✔ log_msg @done (17-07-16 20:03)
+  ☐ go_to_sleep
   ☐ use_tool
   ☐ wake_up
+  ☐ give_energy
+  ☐ take_energy
+  ☐ set_energy
+  ☐ upgrade_max_energy
   ✔ add_item_to_backpack @done (17-07-15 14:39)
   ✔ collect_food @done (17-07-15 14:39)
   ✔ collect_gold @done (17-07-15 14:34)
@@ -80,12 +84,16 @@ Player:
   ✔ swap_item_from_backpack @done (17-07-15 14:39)
   ✔ upgrade_backpack @done (17-07-15 14:34)
   ✔ use_key @done (17-07-15 14:39)
+  ✔ update @done (17-07-16 18:06)
 
   player_spec:
-    ☐ log_msg
     ☐ sleep
     ☐ use_tool
     ☐ wake_up
+    ☐ give_energy
+    ☐ take_energy
+    ☐ set_energy
+    ☐ upgrade_max_energy
     ✔ add_item_to_backpack @done (17-07-15 14:49)
     ✔ collect_food @done (17-07-15 14:49)
     ✔ collect_gold @done (17-07-15 14:49)
@@ -100,6 +108,8 @@ Player:
     ✔ give_key @done (17-07-15 14:49)
     ✔ has_backpack @done (17-07-15 14:45)
     ✔ has_tool @done (17-07-15 14:50)
+    ✔ initial_state @done (17-07-16 17:42)
+    ✔ log_msg @done (17-07-16 17:44)
     ✔ move_to @done (17-07-15 14:50)
     ✔ num_keys @done (17-07-15 14:49)
     ✔ open_chest @done (17-07-16 16:10)
@@ -108,7 +118,7 @@ Player:
     ✔ swap_item_from_backpack @done (17-07-15 14:49)
     ✔ upgrade_backpack @done (17-07-15 14:48)
     ✔ use_key @done (17-07-15 14:49)
-    ✔ initial_state @done (17-07-16 17:42)
+    ✔ update @done (17-07-16 18:06)
 
 Cell:
   ☐ collect 
