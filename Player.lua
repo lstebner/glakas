@@ -308,6 +308,10 @@ function Player.wake_up(player, next_state)
   end
 end
 
+function Player.change_state(player, new_state)
+  State.change_state(player.state, new_state)
+end
+
 
 
 
