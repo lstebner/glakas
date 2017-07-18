@@ -27,3 +27,15 @@ function deepcopy(orig)
     end
     return copy
 end
+
+function extend(table1, table2)
+    for k,v in pairs(table2) do 
+        if (type(table1[k]) == 'table' and type(v) == 'table') then
+            extend(table1[k], v)
+        else
+            table1[k] = v 
+        end
+    end
+
+    return table1
+end
