@@ -1,13 +1,25 @@
 require '../Tool'
 
 describe("Tool", function()
+  local tool = nil
+
+  before_each(function()
+    tool = Tool.create()
+  end)
+
   describe("#create", function()
     it("can create a Tool", function()
-      pending("todo")
+      assert.is_truthy(tool)
     end)
 
-    it("sets tool durability and energy cost based on type", function()
-      pending("todo")
+    it("can take props", function()
+      tool = Tool.create({
+        match_distance = 10,
+        name = "axe",
+      })
+
+      assert.are.same(10, tool.match_distance)
+      assert.are.same("axe", tool.name)
     end)
   end)
 
