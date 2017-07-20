@@ -24,14 +24,13 @@ describe("Tool", function()
   end)
 
   describe("#needs_repair", function()
-    it("does not need repair when it is as max durability", function()
+    it("does not need repair when durability is > Tool.NEEDS_REPAIR_THRESHOLD", function()
       tool.durability = tool.max_durability
       assert.is_false(Tool.needs_repair(tool))
     end)
 
     it("does need repair when durability is < Tool.NEEDS_REPAIR_THRESHOLD", function()
-      tool.durability = 1
-      tool.max_durability = 100
+      tool.durability = 0
       assert.is_true(Tool.needs_repair(tool))
     end)
   end)
@@ -68,12 +67,13 @@ describe("Tool", function()
     end)
 
     it("keeps track of times used", function()
+      local times_used = tool.times_used
       tool.durability = 10
       tool.max_durability = 10
       Tool.use(tool)
-      assert.are.same(1, tool.times_used)
+      assert.are.same(times_used + 1, tool.times_used)
       Tool.use(tool)
-      assert.are.same(2, tool.times_used)
+      assert.are.same(times_used + 2, tool.times_used)
     end)
   end)
 
