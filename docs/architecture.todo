@@ -269,18 +269,18 @@ Backpack:
    ✔ upgrade @done (17-07-15 22:04)
 
 Tool:
- ☐ create
- ☐ needs_repair
- ☐ repair
- ☐ use
- ☐ upgrade
+ ✔ create @done (17-07-20 21:25)
+ ✔ needs_repair @done (17-07-20 21:25)
+ ✔ repair @done (17-07-20 21:25)
+ ✔ use @done (17-07-20 21:25)
+ ✔ upgrade @done (17-07-20 21:25)
 
  tool_spec:
-   ☐ create
-   ☐ needs_repair
-   ☐ repair
-   ☐ use
-   ☐ upgrade
+   ✔ create @done (17-07-20 21:25)
+   ✔ needs_repair @done (17-07-20 21:25)
+   ✔ repair @done (17-07-20 21:25)
+   ✔ use @done (17-07-20 21:25)
+   ✔ upgrade @done (17-07-20 21:25)
 
 
 State:
