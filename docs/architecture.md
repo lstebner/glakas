@@ -274,4 +274,51 @@ static image = nil
 - needs_repair: 
 
 
+# GameManager
+
+The GameManager is the entry point for the entire game. It assists with transitioning between menus and input states, and rendering. It provides a generic interface for all of the above and tracks a game_state State machine. It also uses an internal_state State machine to track the cycle of where any one particular state is at.
+
+props = {
+  initial_state = ""
+  internal_state = instanceof State
+  game_state = instanceof State
+  objects = {}
+  accepting_input = bool
+}
+
+INTERNAL_STATES = {
+  init
+  loading
+  ready
+}
+
+GAME_STATES = {
+  loading
+  start_menu
+  in_game
+  paused
+  player_died
+}
+
+methods: 
+  ☐ create
+    - create a new GameManager instance
+  ☐ change_game_state
+    - change the GameManager's state on the next update
+  ☐ current_state
+    - retrieve the current state
+  ☐ load
+    - load, called after any state change
+  ☐ update
+    - update all objects in the current state
+  ☐ render
+    - render all objects in the current state
+
+
+manager = GameManager.create()
+manager.change_state("start_menu")
+
+
+
+
 

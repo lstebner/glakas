@@ -292,3 +292,17 @@ State:
     ✔ create @done (17-07-16 17:38)
     ✔ update @done (17-07-16 17:38)
     ✔ change_state @done (17-07-16 17:38)
+
+GameManager:
+  ☐ create
+  ☐ change_game_state
+  ☐ game_state
+  ☐ on_game_state_change
+  ☐ change_internal_state
+  ☐ internal_state
+  ☐ on_internal_state_change
+  ☐ load
+  ☐ update
+  ☐ render
+  ☐ enable_input
+  ☐ disable_input
