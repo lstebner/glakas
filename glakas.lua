@@ -36,6 +36,40 @@ firstmap = {
 }
 
 firstmap.rooms[1] = {
+  forests = 1,
+  mushrooms = false,
+  chests = 0,
+  disguise_doors = false,
+  gem_weights = {
+    empty = 1,
+    gold = item_chance.none,
+    gem_blue = item_chance.none,
+    gem_green = item_chance.none,
+    gem_orange = item_chance.none,
+    food = item_chance.none,
+    water = item_chance.none,
+    tree = item_chance.low,
+  }
+}
+
+firstmap.rooms[2] = {
+  forests = 3,
+  mushrooms = false,
+  chests = 0,
+  disguise_doors = false,
+  gem_weights = {
+    empty = 1,
+    gold = item_chance.none,
+    gem_blue = item_chance.none,
+    gem_green = item_chance.none,
+    gem_orange = item_chance.none,
+    food = item_chance.none,
+    water = item_chance.low,
+    tree = item_chance.low,
+  }
+}
+
+firstmap.rooms[3] = {
   forests = 2,
   lakes_and_trees = 2,
   mushrooms = false,
@@ -53,33 +87,33 @@ firstmap.rooms[1] = {
   }
 }
 
-firstmap.rooms[2] = {
+firstmap.rooms[4] = {
   mushrooms = true,
   forests = 1,
   chests = 0,
   disguise_doors = true,
   gem_weights = {
     empty = 2,
-    gold = item_chance.medium,
+    gold = item_chance.low,
     gem_blue = item_chance.medium,
     gem_green = item_chance.medium,
-    gem_orange = item_chance.medium,
+    gem_orange = item_chance.none,
     food = item_chance.low,
     water = item_chance.very_low,
-    tree = item_chance.low,
+    tree = item_chance.medium,
   }
 }
 
-firstmap.rooms[3] = {
+firstmap.rooms[5] = {
   mushrooms = true,
-  forests = 1,
+  forests = 2,
   streams = 3,
   chests = 0,
   disguise_doors = true,
   gem_weights = {
     empty = 2,
     gold = item_chance.medium,
-    gem_blue = item_chance.medium,
+    gem_blue = item_chance.none,
     gem_green = item_chance.medium,
     gem_orange = item_chance.medium,
     food = item_chance.low,
@@ -88,7 +122,7 @@ firstmap.rooms[3] = {
   }
 }
 
-firstmap.rooms[4] = {
+firstmap.rooms[6] = {
   mushrooms = true,
   forests = 4,
   chests = 2,
@@ -99,7 +133,7 @@ firstmap.rooms[4] = {
     gem_blue = item_chance.low,
     gem_green = item_chance.high,
     gem_orange = item_chance.high,
-    food = item_chance.low,
+    food = item_chance.medium,
     water = item_chance.very_low,
     tree = item_chance.very_low,
   }
