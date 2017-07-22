@@ -7,6 +7,7 @@ local DEFAULT_PROPS = {
   previous_state = nil,
   next_state = nil,
   on_state_changed = nil,
+  just_changed = false,
 }
 
 function State.create(props)
@@ -19,10 +20,13 @@ function State.update(state)
     state.previous_state = state.current_state
     state.current_state = state.next_state
     state.next_state = nil
+    state.just_changed = true
 
     if state.on_state_changed then
       state.on_state_changed(state)
     end
+  elseif state.just_changed then
+    state.just_changed = false
   end
 end
 

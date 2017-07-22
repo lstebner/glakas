@@ -30,6 +30,13 @@ describe("State", function()
       assert.are.same(nil, state.next_state)
     end)
 
+    it("flags just_changed for one cycle after state changes", function()
+      State.update(state)
+      assert.is_true(state.just_changed, "expected just_changed to be true")
+      State.update(state)
+      assert.is_false(state.just_changed, "expected just_changed to now be false")
+    end)
+
     it("calls on_state_changed when state changes", function()
       local s = spy.new(function() end)
       state.on_state_changed = s
